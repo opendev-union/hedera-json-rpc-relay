@@ -64,3 +64,35 @@ jobs:
           name: ${{ env.PACKAGE_NAME }}-v${{env.TAG}}
           path: ./*.tgz
           if-no-files-found: error
+
+  helm-chart-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Configure Git
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+
+      - name: Install Helm
+        uses: azure/setup-helm@v3
+
+      # Note(joseb): Once the chart path is fixed to `helm-chart/hedera-json-rpc-relay`,
+      #              we can remove this step.
+      - name: Create charts tmp directory
+        run: |
+          mkdir charts-tmp
+          cp -a helm-chart charts-tmp/hedera-json-rpc-relay
+
+      - name: Run chart-releaser
+        uses: helm/chart-releaser-action@v1.5.0
+        with:
+          charts_dir: charts-tmp/
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
