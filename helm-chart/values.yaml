@@ -9,6 +9,7 @@ autoscaling:
   targetCPUUtilizationPercentage: 80
   targetMemoryUtilizationPercentage: 80
 
+
 config:
   # This value should be in decimal, not hexadecimal format. Defaulted to testnet
   CHAIN_ID: ''
