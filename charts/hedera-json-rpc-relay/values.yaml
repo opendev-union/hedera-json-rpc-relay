@@ -1,6 +1,7 @@
 # Default values for json-rpc-relay.
 affinity: {}
 
+
 autoscaling:
   # need to test
   enabled: false
