@@ -58,7 +58,6 @@ jobs:
       - name: Install chart
         run: ct install --charts=charts/hedera-json-rpc-relay --helm-extra-args="--timeout 10m"
   
-  # Note(joseb): just for testing in main branch
   helm-chart-release:
     runs-on: ubuntu-latest
     permissions:
