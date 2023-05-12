@@ -2,6 +2,7 @@
 affinity: {}
 
 
+
 autoscaling:
   # need to test
   enabled: false
